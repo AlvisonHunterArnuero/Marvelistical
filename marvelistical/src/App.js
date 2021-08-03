@@ -1,34 +1,42 @@
-import logo from "./marvel_logo.png";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import { marvelApi } from "./config/config";
 
-const MainNav = () => {
-	return (
-		<div>
-			<nav className="navbar navbar-light bg-light">
-				<div className="container-fluid">
-					<a className="navbar-brand" href="/">
-						<img
-							src={logo}
-							alt=""
-							width="30"
-							height="24"
-							class="d-inline-block align-text-top"
-						/>
-						Marvelistical
-
-
-					</a>
-				</div>
-			</nav>
-		</div>
-	);
-};
+import NavBar from "./components/navBar";
+import SearchBar from "./components/searchBar";
+import CharactersList from "./components/charactersList";
 
 function App() {
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
+	useEffect(() => {
+		fetch(marvelApi.baseUrl)
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw response;
+			})
+			.then((data) => {
+				setData(data);
+			})
+			.catch((error) => {
+				console.error("Error", error);
+				setError(error);
+			});
+	}, []);
+
 	return (
 		<div className="App">
-			<MainNav />
-			<h1 class="display-4">Enter The World Of Marvelistical</h1>
+			<NavBar />
+			<h1 className="display-4">Marvelistical</h1>
+
+			<div className="container">
+				<div className="row">
+					<SearchBar className="my-4" />
+					<CharactersList />
+				</div>
+			</div>
 		</div>
 	);
 }
