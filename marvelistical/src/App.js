@@ -6,13 +6,18 @@ import SearchBar from "./components/searchBar";
 import CharactersList from "./components/charactersList";
 
 function App() {
+	const PUB_API_KEY = process.env.REACT_APP_MARVEL_PUBLIC_API_KEY;
+	const PRIV_API_KEY = process.env.REACT_APP_MARVEL_PRIVATE_API_KEY;
+	const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 	const [data, setData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
+
 	useEffect(() => {
 		fetch(marvelApi.baseUrl)
 			.then((response) => {
 				if (response.ok) {
+					console.log(response);
 					return response.json();
 				}
 				throw response;
@@ -21,8 +26,8 @@ function App() {
 				setData(data);
 			})
 			.catch((error) => {
-				console.error("Error", error);
 				setError(error);
+				console.error("Error", error);
 			});
 	}, []);
 
