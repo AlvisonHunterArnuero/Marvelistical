@@ -1,6 +1,6 @@
 const SearchBar = () => {
 	return (
-		<div>
+		<div className="search-bar-pos">
 			<div className="row">
 				<div className="col-12">
 					<div className="input-group mb-3">

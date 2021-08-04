@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { marvelApi } from "./config/config";
-
 import NavBar from "./components/navBar";
 import SearchBar from "./components/searchBar";
 import CharactersList from "./components/charactersList";
+import HeroesCarousel from "./components/heroesCarousel";
+import "./App.css";
 
 function App() {
-	const PUB_API_KEY = process.env.REACT_APP_MARVEL_PUBLIC_API_KEY;
-	const PRIV_API_KEY = process.env.REACT_APP_MARVEL_PRIVATE_API_KEY;
-	const baseURL = "https://pokeapi.co/api/v2/pokemon/";
 	const [data, setData] = useState(null);
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		fetch(marvelApi.baseUrl)
+		const baseURL = "https://gateway.marvel.com:443/v1/public";
+
+		const apikey = process.env.REACT_APP_MARVEL_PUBLIC_API_KEY;
+		const generated_hash = "b6b53749e2f1badd611ec6787fa7ba66";
+		const timeStamp = 1;
+		const strApiURL = encodeURI(
+			`apikey=${apikey}&hash=${generated_hash}&ts=${timeStamp}`
+		);
+		fetch(baseURL + `/characters?${strApiURL}`)
 			.then((response) => {
 				if (response.ok) {
-					console.log(response);
 					return response.json();
 				}
 				throw response;
@@ -26,7 +28,6 @@ function App() {
 				setData(data);
 			})
 			.catch((error) => {
-				setError(error);
 				console.error("Error", error);
 			});
 	}, []);
@@ -34,12 +35,12 @@ function App() {
 	return (
 		<div className="App">
 			<NavBar />
-			<h1 className="display-4">Marvelistical</h1>
+			<HeroesCarousel />
 
 			<div className="container">
 				<div className="row">
 					<SearchBar className="my-4" />
-					<CharactersList />
+					{data && <CharactersList data={data} />}
 				</div>
 			</div>
 		</div>

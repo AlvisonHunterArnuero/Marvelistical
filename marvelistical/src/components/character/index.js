@@ -1,21 +1,27 @@
-const Characters = (props) => {
+import React from "react";
+import CharacterProfileImage from "../characterProfileImage";
+
+const Characters = ({ resultValues }) => {
+	const { name, description, thumbnail } = resultValues;
+	const { path } = thumbnail;
+
 	return (
-		<div className="col-3">
-			<div className="card">
-				<img src="..." className="card-img-top" alt="..." />
-				<div className="card-body">
-					<h5 className="card-title">I am {props.hero}</h5>
-					<p className="card-text">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-						fringilla, diam eget rutrum molestie, odio diam consectetur felis, a
-						commodo nisl massa vel urna.
-					</p>
-					<a href="#" className="btn btn-primary">
-						View Hero Details
-					</a>
+		<React.Fragment>
+			<div className="col-12 col-sm-12 col-md-4 my-3" key={resultValues}>
+				<div className="card">
+					<CharacterProfileImage srcText={path} alternativeText={description} />
+					<div className="card-body">
+						<h5 className="card-title text-primary">{name} </h5>
+
+						<div className="card-body">
+							<button className="btn btn-danger btn-lg" type="button">
+								More Info
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		</React.Fragment>
 	);
 };
 
