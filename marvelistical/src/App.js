@@ -1,50 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import NavBar from "./components/navBar";
-import SearchBar from "./components/searchBar";
 import CharactersList from "./components/charactersList";
 import HeroesCarousel from "./components/heroesCarousel";
+import Comics from "./components/comics";
+import Stories from "./components/stories";
+
+import { StoreContext } from "./context";
 import "./App.css";
 
 function App() {
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		const baseURL = "https://gateway.marvel.com:443/v1/public";
-
-		const apikey = process.env.REACT_APP_MARVEL_PUBLIC_API_KEY;
-		const generated_hash = "b6b53749e2f1badd611ec6787fa7ba66";
-		const timeStamp = 1;
-		const strApiURL = encodeURI(
-			`apikey=${apikey}&hash=${generated_hash}&ts=${timeStamp}`
-		);
-		fetch(baseURL + `/characters?${strApiURL}`)
-			.then((response) => {
-				if (response.ok) {
-					return response.json();
-				}
-				throw response;
-			})
-			.then((data) => {
-				setData(data);
-			})
-			.catch((error) => {
-				console.error("Error", error);
-			});
-	}, []);
-
+	const cnxtInstance = useContext(StoreContext);
+	useEffect(
+		() => {
+			cnxtInstance.setFetchCategory("characters");
+			cnxtInstance.fetchData();
+		},
+		cnxtInstance,
+		[]
+	);
 	return (
 		<div className="App">
-			<NavBar />
-			<HeroesCarousel />
-
-			<div className="container">
-				<div className="row">
-					<SearchBar className="my-4" />
-					{data && <CharactersList data={data} />}
+			<Router>
+				<div className="container-fluid">
+					<div className="row">
+						<NavBar />
+						<Switch>
+							<Route path="/" exact component={HeroesCarousel} />
+							<Route path="/characters">
+								<CharactersList data={cnxtInstance.data} />
+							</Route>
+							<Route path="/comics">
+								<Comics />
+							</Route>
+							<Route path="/stories">
+								<Stories />
+							</Route>
+						</Switch>
+					</div>
 				</div>
-			</div>
+			</Router>
 		</div>
 	);
 }
-
 export default App;
