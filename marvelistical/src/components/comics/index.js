@@ -1,37 +1,46 @@
-import React, { useContext, Fragment } from "react";
+import React, { useEffect, useContext, Fragment } from "react";
 import { StoreContext } from "../../context";
+import ComicsCard from "../comicsCard";
+import MainHeader from "../mainHeader";
+import SearchBar from "../searchBar";
 
 const Comics = () => {
 	const cnxtComicsInstance = useContext(StoreContext);
-	const { res } = cnxtComicsInstance.data.data;
 
-	// const comics = cnxtComicsInstance.data.map((item) => {
-	// 	console.log(item.comics);
-	// 	return item.comics;
-	// });
+	useEffect(
+		() => {
+			cnxtComicsInstance.fetchComicsData();
+		},
+		cnxtComicsInstance,
+		[]
+	);
 
-	console.log("comics card", res);
-	// const filteredComics =
-	// 	cnxtComicsInstance.search.length === 0
-	// 		? comics
-	// 		: comics.filter((hero) =>
-	// 				hero.name
-	// 					.toLowerCase()
-	// 					.includes(cnxtComicsInstance.search.toLowerCase())
-	// 		  );
+	const comicsInfo = cnxtComicsInstance.comicsData.map((item) => {
+		console.log(item);
+		return item;
+	});
+
+	console.log("comics card", cnxtComicsInstance.comicsData);
+	const comics = cnxtComicsInstance.comicsData || {};
+	const filteredComics =
+		cnxtComicsInstance.search.length === 0
+			? comics
+			: comics.filter((hero) =>
+					hero.title
+						.toLowerCase()
+						.includes(cnxtComicsInstance.search.toLowerCase())
+			  );
 
 	return (
 		<Fragment>
-			{/* {cnxtComicsInstance.data.comics === null ? (
-				<h1 className="text-info">LOADING...</h1>
-			) : (
-				<div className="row justify-content-between my-4">
-					{filteredComics.map((values, i) => (
-						<li key={i}>{values}</li>
-					))}
-				</div>
-			)} */}
-			<h1 className="display-4 hero-name">Comics</h1>
+			<MainHeader sectionTitle="Comics" />
+			<SearchBar className="my-4" />
+
+			<div className="row justify-content-between my-4 pb-4">
+				{filteredComics.map((issue, i) => (
+					<ComicsCard key={i} comicsItem={issue} />
+				))}
+			</div>
 		</Fragment>
 	);
 };

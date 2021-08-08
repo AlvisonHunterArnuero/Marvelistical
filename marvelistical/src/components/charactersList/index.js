@@ -5,12 +5,14 @@ import SearchBar from "../searchBar";
 
 const CharactersList = () => {
 	const cnxtSearchInstance = useContext(StoreContext);
-	cnxtSearchInstance.setFetchCategory("characters");
-	cnxtSearchInstance.fetchData();
-	const { results } = cnxtSearchInstance.data.data;
+	let boolDisplayLoadingMessage = false;
 
+	if (cnxtSearchInstance.data === undefined) {
+		console.log("No data found");
+		boolDisplayLoadingMessage = true;
+	}
 	console.log("characters card", cnxtSearchInstance.data);
-
+	const results = cnxtSearchInstance.data || {};
 	const filteredCharacters =
 		cnxtSearchInstance.search.length === 0
 			? results
@@ -23,7 +25,7 @@ const CharactersList = () => {
 	return (
 		<Fragment>
 			<SearchBar className="my-4" />
-			{cnxtSearchInstance.data.results === null ? (
+			{boolDisplayLoadingMessage ? (
 				<h1 className="text-info">LOADING...</h1>
 			) : (
 				<div className="row justify-content-between my-4 pb-4">

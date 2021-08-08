@@ -28,6 +28,12 @@ const heroesCarousel = () => {
 								className="d-block w-100"
 								alt="..."
 							/>
+							<div className="carousel-caption d-none d-md-block">
+								<h5 className="main-title display-2">
+									Welcome to MARVELISTICAL
+								</h5>
+								<p>The dark underworld of the most famous heroes.</p>
+							</div>
 						</div>
 					);
 				})}

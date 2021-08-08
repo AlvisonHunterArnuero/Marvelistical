@@ -14,7 +14,6 @@ function App() {
 	const cnxtInstance = useContext(StoreContext);
 	useEffect(
 		() => {
-			cnxtInstance.setFetchCategory("characters");
 			cnxtInstance.fetchData();
 		},
 		cnxtInstance,
@@ -29,7 +28,7 @@ function App() {
 						<Switch>
 							<Route path="/" exact component={HeroesCarousel} />
 							<Route path="/characters">
-								<CharactersList data={cnxtInstance.data} />
+								<CharactersList data={cnxtInstance?.data} />
 							</Route>
 							<Route path="/comics">
 								<Comics />

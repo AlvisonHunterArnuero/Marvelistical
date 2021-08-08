@@ -9,27 +9,27 @@ const SearchBar = () => {
 	};
 
 	return (
-		<div className="search-bar-pos mt-4">
-			<div className="row">
-				<div className="col-12">
-					<div className="input-group mb-3">
-						<input
-							type="text"
-							className="form-control"
-							placeholder="Search..."
-							aria-label="Search..."
-							aria-describedby="basic-addon2"
-							onChange={handleChange}
-						/>
-						<span className="input-group-text" id="basic-addon2">
-							<button type="button" className="btn btn-outline-primary">
-								Fetch Hero
-							</button>
-						</span>
+		<>
+			<div className="search-bar-pos mt-4">
+				<div className="row">
+					<div className="col-12">
+						<div className="input-group mb-3">
+							<input
+								type="text"
+								className="form-control"
+								placeholder="Search..."
+								aria-label="Search..."
+								aria-describedby="basic-addon2"
+								onChange={handleChange}
+							/>
+							<span className="input-group-text" id="basic-addon2">
+								Please type in your search
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 };
 
