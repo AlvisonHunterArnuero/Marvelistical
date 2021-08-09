@@ -7,13 +7,16 @@ const characterProfileImage = ({ srcText }, { alternativeText }) => {
 	return (
 		<div className="thumb1">
 			<img
+				className="card-img-top"
+				alt={alternativeText ? alternativeText : "No Description Provided"}
+				data-bs-toggle="tooltip"
+				data-bs-placement="top"
+				title={alternativeText ? alternativeText : "No Description Provided"}
 				src={imgURL}
 				onError={(e) => {
 					e.target.onerror = null;
 					e.target.src = `${imgNotAvailable}`;
 				}}
-				className="card-img-top"
-				alt={alternativeText}
 			/>
 		</div>
 	);

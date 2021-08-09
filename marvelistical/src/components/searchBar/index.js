@@ -10,7 +10,7 @@ const SearchBar = () => {
 
 	return (
 		<>
-			<div className="search-bar-pos mt-4">
+			<div className="search-bar-pos mt-1">
 				<div className="row">
 					<div className="col-12">
 						<div className="input-group mb-3">
@@ -23,7 +23,7 @@ const SearchBar = () => {
 								onChange={handleChange}
 							/>
 							<span className="input-group-text" id="basic-addon2">
-								Please type in your search
+								<i className="fas fa-search"></i>
 							</span>
 						</div>
 					</div>

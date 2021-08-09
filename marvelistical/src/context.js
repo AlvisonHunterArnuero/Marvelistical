@@ -4,11 +4,10 @@ export const StoreContext = createContext();
 export const StoreContextProvider = (props) => {
 	// Global Store to handle all state scenarios
 	const [data, setData] = useState(null);
-
 	const [comicsData, setComicsData] = useState([]);
 	const [storiesData, setStoriesData] = useState([]);
 	const [search, setSearch] = useState("");
-	const [isActive, setActive] = useState(false);
+	const [orderedByName, setOrderedByName] = useState(false);
 
 	// Fetching common variables for all data categories
 	const baseURL = "https://gateway.marvel.com:443/v1/public";
@@ -48,7 +47,24 @@ export const StoreContextProvider = (props) => {
 			.then((comics) => {
 				const comicsResults = comics.data.results;
 				setComicsData(comicsResults);
-				console.log("DATA FROM COMICS", comicsResults);
+			})
+			.catch((error) => {
+				setData([]);
+				console.error("Error", error);
+			});
+	};
+
+	const fetchStoriesData = () => {
+		fetch(baseURL + `/stories?${strApiURL}`)
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw response;
+			})
+			.then((stories) => {
+				const storiesResults = stories.data.results;
+				setStoriesData(storiesResults);
 			})
 			.catch((error) => {
 				setData([]);
@@ -67,10 +83,11 @@ export const StoreContextProvider = (props) => {
 		setStoriesData,
 		search,
 		setSearch,
-		isActive,
-		setActive,
+		orderedByName,
+		setOrderedByName,
 		fetchData,
 		fetchComicsData,
+		fetchStoriesData,
 	};
 
 	return (

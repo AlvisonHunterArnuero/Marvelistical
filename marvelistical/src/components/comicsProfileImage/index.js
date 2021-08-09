@@ -12,7 +12,7 @@ const ComicsProfileImage = ({ srcText }, { alternativeText }) => {
 					e.target.onerror = null;
 					e.target.src = `${imgNotAvailable}`;
 				}}
-				className="img-fluid rounded-start comic-thumb"
+				className="img-fluid w-100 comic-thumb"
 				alt={alternativeText}
 			/>
 		</div>

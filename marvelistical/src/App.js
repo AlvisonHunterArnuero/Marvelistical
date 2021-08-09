@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NavBar from "./components/navBar";
@@ -7,18 +7,9 @@ import HeroesCarousel from "./components/heroesCarousel";
 import Comics from "./components/comics";
 import Stories from "./components/stories";
 
-import { StoreContext } from "./context";
 import "./App.css";
 
 function App() {
-	const cnxtInstance = useContext(StoreContext);
-	useEffect(
-		() => {
-			cnxtInstance.fetchData();
-		},
-		cnxtInstance,
-		[]
-	);
 	return (
 		<div className="App">
 			<Router>
@@ -28,7 +19,7 @@ function App() {
 						<Switch>
 							<Route path="/" exact component={HeroesCarousel} />
 							<Route path="/characters">
-								<CharactersList data={cnxtInstance?.data} />
+								<CharactersList />
 							</Route>
 							<Route path="/comics">
 								<Comics />

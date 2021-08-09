@@ -1,50 +1,49 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext, Fragment } from "react";
 import { StoreContext } from "../../context";
-
-const StoriesCard = () => {
-	return (
-		<div className="card mb-2 w-50">
-			<div className="row">
-				<div className="col-md-4">
-					<img
-						src="https://i.annihil.us/u/prod/marvel/i/mg/8/90/610411f9eaac2/clean.jpg"
-						className="img-fluid rounded-start"
-						alt="..."
-					/>
-				</div>
-				<div className="col-md-8">
-					<div className="card-body">
-						<h5 className="card-title">Extreme Carnage: Lasher (2021) #1</h5>
-						<p className="card-text">
-							WITNESS THE BIRTH OF A NEW SYMBIOTE! Four issues into the Carnage
-							event of the summer and the bodies just keep piling up – including
-							some of the Venomaniacs the Mighty Marveldom know and love! But
-							now is not a time to mourn for fallen heroes (or their symbiotes).
-							CARNAGE is on the loose, and he's building an army…
-						</p>
-						<p className="card-text">
-							<small class="text-muted">Published: August 04, 2021</small>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
-};
+import StoryCard from "../storyCard";
+import MainHeader from "../mainHeader";
+import SearchBar from "../searchBar";
 
 const Stories = () => {
 	const cnxtStoriesInstance = useContext(StoreContext);
-	cnxtStoriesInstance.setSearch("");
+
+	useEffect(
+		() => {
+			cnxtStoriesInstance.fetchStoriesData();
+		},
+		// eslint-disable-next-line
+		cnxtStoriesInstance,
+		[]
+	);
+
+	const stories = cnxtStoriesInstance.storiesData || {};
+	const filteredStories =
+		cnxtStoriesInstance.search.length === 0
+			? stories
+			: stories.filter((story) =>
+					story.title
+						.toLowerCase()
+						.includes(cnxtStoriesInstance.search.toLowerCase())
+			  );
 
 	return (
-		<div>
-			<h1 className="display-3 hero-name">Stories</h1>
+		<Fragment>
+			<MainHeader
+				sectionTitle="Marvel Stories List"
+				sectionText="What's Coming To Marvel Unlimited This Month"
+			/>
+			<SearchBar className="my-4" />
+
 			<div className="row justify-content-between my-4 pb-4">
-				<StoriesCard />
-				<StoriesCard />
-				<StoriesCard />
+				{filteredStories === undefined ? (
+					<b className="display-2 text-info">LOADING...</b>
+				) : (
+					filteredStories.map((story, i) => (
+						<StoryCard key={i} storiesItem={story} />
+					))
+				)}
 			</div>
-		</div>
+		</Fragment>
 	);
 };
 

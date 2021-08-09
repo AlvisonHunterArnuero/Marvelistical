@@ -3,6 +3,7 @@ import CharacterProfileImage from "../characterProfileImage";
 
 const Characters = (props) => {
 	const { thumbnail, name, description } = props.resultValues;
+
 	return (
 		<React.Fragment>
 			<div className="col-12 col-sm-12 col-md-4 my-1" key={props.id}>

@@ -11,35 +11,39 @@ const Comics = () => {
 		() => {
 			cnxtComicsInstance.fetchComicsData();
 		},
+		// eslint-disable-next-line
 		cnxtComicsInstance,
 		[]
 	);
 
-	const comicsInfo = cnxtComicsInstance.comicsData.map((item) => {
-		console.log(item);
-		return item;
-	});
-
-	console.log("comics card", cnxtComicsInstance.comicsData);
 	const comics = cnxtComicsInstance.comicsData || {};
 	const filteredComics =
 		cnxtComicsInstance.search.length === 0
 			? comics
-			: comics.filter((hero) =>
-					hero.title
+			: comics.filter((comic) =>
+					comic.title
 						.toLowerCase()
 						.includes(cnxtComicsInstance.search.toLowerCase())
 			  );
 
 	return (
 		<Fragment>
-			<MainHeader sectionTitle="Comics" />
+			<MainHeader
+				sectionTitle="Marvel Comics List"
+				sectionText="What's Coming To Marvel Unlimited This Month"
+			/>
 			<SearchBar className="my-4" />
 
 			<div className="row justify-content-between my-4 pb-4">
-				{filteredComics.map((issue, i) => (
-					<ComicsCard key={i} comicsItem={issue} />
-				))}
+				{filteredComics === null ? (
+					<div className="spinner-border text-info" role="status">
+						<span className="visually-hidden">Loading...</span>
+					</div>
+				) : (
+					filteredComics.map((issue, i) => (
+						<ComicsCard key={i} comicsItem={issue} />
+					))
+				)}
 			</div>
 		</Fragment>
 	);

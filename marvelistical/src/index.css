@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Georama:wght@100&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+
+/* Body customization rules */
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -15,31 +17,7 @@ code {
 		monospace;
 }
 
-.main-title {
-	font-family: "Bangers", cursive !important;
-	font-size: 5rem;
-	color: aliceblue;
-}
-
-.demi-title {
-	font-family: "Bangers", cursive !important;
-	font-size: 3.5rem;
-	color: rgb(12, 122, 218);
-}
-
-.comic-thumb {
-	width: 213px;
-	height: 312px;
-	aspect-ratio: auto 213/312;
-}
-.hero-name {
-	font-family: "Georama", sans-serif;
-	text-transform: capitalize;
-	font-size: 1.5rem;
-	font-weight: bold;
-	color: cornflowerblue;
-}
-
+/* Navbar customization rules */
 .navbar-nav > li a {
 	font-family: "Abel", sans-serif;
 	text-transform: uppercase;
@@ -51,4 +29,56 @@ code {
 .navbar-nav > li a:hover {
 	color: coral;
 	font-weight: 600;
+}
+
+/* Carrousel customization rules */
+.carousel-caption {
+	bottom: 15% !important;
+	display: flex;
+}
+
+.main-title {
+	font-family: "Bangers", cursive !important;
+	font-size: 5rem;
+	color: aliceblue;
+	filter: drop-shadow(0 0 0.45rem crimson);
+}
+
+/* Cards Section customization rules */
+.jumbotron {
+	background-image: url("headerBackground.jpg") !important;
+	background-size: cover;
+	height: 100%;
+}
+
+.card {
+	transition: all 0.2s ease;
+	cursor: pointer;
+	padding: 0px;
+}
+
+.card:hover {
+	opacity: 0.85;
+	transform: scale(0.99);
+}
+
+.comic-thumb {
+	width: 213px;
+	height: 312px;
+	aspect-ratio: auto 213/312;
+}
+
+.demi-title {
+	font-family: "Bangers", cursive !important;
+	font-size: 3.5rem;
+	color: aliceblue;
+	filter: drop-shadow(0 0 0.45rem crimson);
+}
+
+.hero-name {
+	font-family: "Georama", sans-serif;
+	text-transform: capitalize;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: cornflowerblue;
 }
