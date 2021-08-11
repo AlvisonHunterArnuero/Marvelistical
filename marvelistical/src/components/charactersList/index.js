@@ -15,8 +15,6 @@ const CharactersList = () => {
 		[]
 	);
 
-	console.log("characters card", cnxtSearchInstance.data);
-
 	const results = cnxtSearchInstance.data;
 	const filteredCharacters =
 		cnxtSearchInstance.search.length === 0
@@ -35,9 +33,12 @@ const CharactersList = () => {
 			/>
 			<SearchBar className="my-4" />
 			<div className="row justify-content-between my-4 pb-4">
-				{filteredCharacters === null ? (
-					<div className="spinner-border text-info" role="status">
-						<span className="visually-hidden">Loading...</span>
+				{cnxtSearchInstance.isLoaded === false ? (
+					<div className="d-flex align-items-center justify-content-center">
+						<strong className="text-warning">LOADING...</strong>
+						<div className="spinner-grow text-warning" role="status">
+							<span className="visually-hidden">Loading...</span>{" "}
+						</div>
 					</div>
 				) : (
 					filteredCharacters.map((values, i) => (

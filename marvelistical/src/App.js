@@ -1,11 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import { CSSTransition } from "react-transition-group";
 import NavBar from "./components/navBar";
 import CharactersList from "./components/charactersList";
+import CharacterByIdNumber from "./components/characterByIdNumber";
 import HeroesCarousel from "./components/heroesCarousel";
 import Comics from "./components/comics";
 import Stories from "./components/stories";
+import PageNotFound from "./components/pageNotFound";
 
 import "./App.css";
 
@@ -17,15 +19,32 @@ function App() {
 					<div className="row">
 						<NavBar />
 						<Switch>
-							<Route path="/" exact component={HeroesCarousel} />
-							<Route path="/characters">
-								<CharactersList />
+							<Route exact path="/" component={HeroesCarousel} />
+
+							<Route exact path="/characters">
+								<CSSTransition timeout={300} classNames="fade">
+									<CharactersList />
+								</CSSTransition>
+							</Route>
+							<Route exact path="/characters/:id">
+								<CSSTransition timeout={300} classNames="fade">
+									<CharacterByIdNumber />
+								</CSSTransition>
 							</Route>
 							<Route path="/comics">
-								<Comics />
+								<CSSTransition timeout={300} classNames="fade">
+									<Comics />
+								</CSSTransition>
 							</Route>
 							<Route path="/stories">
-								<Stories />
+								<CSSTransition timeout={300} classNames="fade">
+									<Stories />
+								</CSSTransition>
+							</Route>
+							<Route path="*">
+								<CSSTransition timeout={300} classNames="fade">
+									<PageNotFound />
+								</CSSTransition>
 							</Route>
 						</Switch>
 					</div>

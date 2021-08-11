@@ -82,3 +82,26 @@ code {
 	font-weight: bold;
 	color: cornflowerblue;
 }
+
+.text-justify {
+	text-align: justify;
+}
+
+.fade-enter {
+	opacity: 0;
+	transform: scale(0.9);
+	transform: translateX(-100px);
+}
+.fade-enter-active {
+	opacity: 1;
+	transform: translateX(0);
+	transition: opacity 300ms, transform 300ms ease;
+}
+.fade-exit {
+	opacity: 1;
+}
+.fade-exit-active {
+	opacity: 0;
+	transform: scale(0.9);
+	transition: opacity 300ms, transform 300ms;
+}

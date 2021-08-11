@@ -35,8 +35,13 @@ const Stories = () => {
 			<SearchBar className="my-4" />
 
 			<div className="row justify-content-between my-4 pb-4">
-				{filteredStories === undefined ? (
-					<b className="display-2 text-info">LOADING...</b>
+				{cnxtStoriesInstance.isLoaded === false ? (
+					<div className="d-flex align-items-center justify-content-center">
+						<strong className="text-warning">LOADING...</strong>
+						<div className="spinner-grow text-warning" role="status">
+							<span className="visually-hidden">Loading...</span>{" "}
+						</div>
+					</div>
 				) : (
 					filteredStories.map((story, i) => (
 						<StoryCard key={i} storiesItem={story} />

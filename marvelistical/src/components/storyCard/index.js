@@ -2,15 +2,14 @@ import React from "react";
 import ComicsProfileImage from "../comicsProfileImage";
 
 const StoriesCard = (props) => {
-	console.log("Que trae", props);
 	const { id, title, thumbnail, originalIssue, creators } = props.storiesItem;
 	const { name, role } = creators.items[0] || "Not available";
 
 	return (
 		<React.Fragment>
-			<div className="col-12 col-sm-12 col-md-6 my-1" key={id}>
-				<div className="card text-white bg-dark mb-3">
-					<div className="row g-0">
+			<div className="col-12 col-sm-12 col-md-6" key={id}>
+				<div className="card text-white  bg-dark mb-3">
+					<div className="row g-0 align-items-center">
 						<div className="col-md-4">
 							<ComicsProfileImage srcText={thumbnail} alternativeText={title} />
 						</div>
@@ -31,9 +30,6 @@ const StoriesCard = (props) => {
 										{title !== "" ? title : "--"}.
 									</small>
 								</p>
-								<button type="button" className="btn btn-outline-warning">
-									Read More..
-								</button>
 							</div>
 						</div>
 					</div>

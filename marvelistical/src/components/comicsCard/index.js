@@ -9,7 +9,7 @@ const ComicsCard = (props) => {
 		<React.Fragment>
 			<div className="col-12 col-sm-12 col-md-6 my-1" key={id}>
 				<div className="card text-white bg-dark mb-3">
-					<div className="row g-0">
+					<div className="row g-0 align-items-center">
 						<div className="col-md-4">
 							<ComicsProfileImage
 								srcText={thumbnail.path}
@@ -25,17 +25,14 @@ const ComicsCard = (props) => {
 								</h6>
 								<p className="card-text text-muted">
 									This comic has been created by {name ? name : "Joe Doe"}, who
-									was the main {role ? role : "fake chief editor"} for Marvel
-									for Several years.
+									worked as a {role ? role : "fake chief editor"} for Marvel
+									Comics for many years.
 								</p>
 								<p className="card-text">
 									<small className="text-info">
 										Total Pages: {pageCount !== 0 ? pageCount : "--"}
 									</small>
 								</p>
-								<button type="button" className="btn btn-outline-warning">
-									Read More..
-								</button>
 							</div>
 						</div>
 					</div>
