@@ -1,9 +1,11 @@
 import React from "react";
 import ComicsProfileImage from "../comicsProfileImage";
+import { StoriesCreators } from "../../Helpers/index";
 
 const StoriesCard = (props) => {
 	const { id, title, thumbnail, originalIssue, creators } = props.storiesItem;
-	const { name, role } = creators.items[0] || "Not available";
+	const retrievedCreators = StoriesCreators(creators);
+	const { name, role } = retrievedCreators;
 
 	return (
 		<React.Fragment>
@@ -20,14 +22,18 @@ const StoriesCard = (props) => {
 								<h6 className="card-subtitle mb-2 text-warning">
 									Issue ID # <span className="text-danger">{id}</span>
 								</h6>
-								<p className="card-text text-muted">
-									Created by: {name ? name : "Joe Doe"} | Role:{" "}
-									{role ? role : "fake chief editor"}.
-								</p>
+
 								<p className="card-text">
 									<small>
 										<b className="text-info">Story:</b>{" "}
 										{title !== "" ? title : "--"}.
+									</small>
+								</p>
+
+								<p className="card-text">
+									<small className="text-muted">
+										<b className="text-success small">Creator(s):</b> {name}{" "}
+										working as {role}.
 									</small>
 								</p>
 							</div>

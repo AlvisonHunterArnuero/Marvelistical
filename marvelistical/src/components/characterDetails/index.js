@@ -2,7 +2,7 @@ import React from "react";
 import CharacterProfileImage from "../characterProfileImage";
 
 const CharacterDetails = ({ resultValues }) => {
-	const { id, name, description, thumbnail, comics, stories } = resultValues;
+	const { _id, name, description, thumbnail, comics, stories } = resultValues;
 	const { path } = thumbnail;
 
 	return (

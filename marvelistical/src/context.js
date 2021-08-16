@@ -3,21 +3,22 @@ export const StoreContext = createContext();
 
 export const StoreContextProvider = (props) => {
 	// Global Store to handle all state scenarios
-	const [data, setData] = useState(null);
+	const [data, setData] = useState([]);
 	const [comicsData, setComicsData] = useState([]);
 	const [storiesData, setStoriesData] = useState([]);
-	const [search, setSearch] = useState("");
+	const [search, setSearch] = useState("a");
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [hideNavBar, setHideNavBar] = useState(true);
 	const [orderedByName, setOrderedByName] = useState(false);
 	const [displayCharacterDetails, setDisplayCharacterDetails] = useState(false);
 
 	// Fetching common variables for all data categories
-	const baseURL = "https://gateway.marvel.com:443/v1/public";
+	const baseURL = "https://gateway.marvel.com/v1/public";
 	const apikey = process.env.REACT_APP_MARVEL_PUBLIC_API_KEY;
-	const generated_hash = "b6b53749e2f1badd611ec6787fa7ba66";
+	const generated_hash = "3898adbce4cdf836a6ec3a49d8ca6103";
 	const timeStamp = 1;
 	const strApiURL = encodeURI(
-		`apikey=${apikey}&hash=${generated_hash}&ts=${timeStamp}&limit=99`
+		`ts=${timeStamp}&apikey=${apikey}&hash=${generated_hash}&limit=97`
 	);
 
 	const fetchData = () => {
@@ -43,9 +44,33 @@ export const StoreContextProvider = (props) => {
 			});
 	};
 
+	const fetchDataByName = (searchTerm) => {
+		setIsLoaded(false);
+		const fetchURL = orderedByName
+			? baseURL +
+			  `/characters?nameStartsWith=${searchTerm}?orderBy=name?${strApiURL}`
+			: baseURL + `/characters?${strApiURL}&nameStartsWith=${searchTerm}`;
+		fetch(fetchURL)
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				}
+				throw response;
+			})
+			.then((payload) => {
+				const { results } = payload.data;
+				setData(results);
+				setIsLoaded(true);
+			})
+			.catch((error) => {
+				setData([]);
+				console.error("Error", error);
+			});
+	};
+
 	const fetchComicsData = () => {
 		setIsLoaded(false);
-		fetch(baseURL + `/comics?${strApiURL}`)
+		fetch(baseURL + `/comics?${strApiURL}&titleStartsWith=${search}`)
 			.then((response) => {
 				if (response.ok) {
 					return response.json();
@@ -102,9 +127,12 @@ export const StoreContextProvider = (props) => {
 		setSearch,
 		isLoaded,
 		setIsLoaded,
+		hideNavBar,
+		setHideNavBar,
 		orderedByName,
 		setOrderedByName,
 		fetchData,
+		fetchDataByName,
 		fetchComicsData,
 		fetchStoriesData,
 		displayCharacterDetails,

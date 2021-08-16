@@ -5,7 +5,7 @@ const ComicsProfileImage = ({ srcText }, { alternativeText }) => {
 	const imgURL = `${srcText}.jpg`;
 
 	return (
-		<div className="">
+		<>
 			<img
 				src={imgURL}
 				onError={(e) => {
@@ -15,7 +15,7 @@ const ComicsProfileImage = ({ srcText }, { alternativeText }) => {
 				className="img-fluid w-100 comic-thumb"
 				alt={alternativeText}
 			/>
-		</div>
+		</>
 	);
 };
 

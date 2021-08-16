@@ -3,6 +3,7 @@ import { StoreContext } from "../../context";
 import ComicsCard from "../comicsCard";
 import MainHeader from "../mainHeader";
 import SearchBar from "../searchBar";
+import LoadingSpinner from "../loader";
 
 const Comics = () => {
 	const cnxtComicsInstance = useContext(StoreContext);
@@ -10,13 +11,13 @@ const Comics = () => {
 	useEffect(
 		() => {
 			cnxtComicsInstance.fetchComicsData();
+			cnxtComicsInstance.setHideNavBar(true);
 		},
 		// eslint-disable-next-line
-		cnxtComicsInstance,
-		[]
+		[cnxtComicsInstance.search]
 	);
 
-	const comics = cnxtComicsInstance.comicsData || {};
+	const comics = cnxtComicsInstance && cnxtComicsInstance.comicsData;
 	const filteredComics =
 		cnxtComicsInstance.search.length === 0
 			? comics
@@ -35,12 +36,7 @@ const Comics = () => {
 			<SearchBar className="my-4" />
 			<div className="row justify-content-between my-4 pb-4">
 				{cnxtComicsInstance.isLoaded === false ? (
-					<div className="d-flex align-items-center justify-content-center">
-						<strong className="text-warning">LOADING...</strong>
-						<div className="spinner-grow text-warning" role="status">
-							<span className="visually-hidden">Loading...</span>{" "}
-						</div>
-					</div>
+					<LoadingSpinner />
 				) : (
 					filteredComics.map((issue, i) => (
 						<ComicsCard key={i} comicsItem={issue} />

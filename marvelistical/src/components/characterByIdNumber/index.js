@@ -35,23 +35,23 @@ const CharacterByIdNumber = () => {
 
 	return (
 		<Fragment>
-			<div className="row justify-content-center py-4 my-4">
-				<div className="col-8">
+			<div className="row justify-content-center py-4 my-4 centered">
+				<div className="col-10">
 					<div className="card text-white bg-dark mb-3 border border-secondary">
 						<div className="row align-items-center justify-content-between">
-							<div className="col-12 col-md-4">
+							<div className="col-12 col-sm-12 col-md-4">
 								<CharacterProfileImage
 									srcText={path}
 									alternativeText={name}
 									charDetails={true}
 								/>
 							</div>
-							<div className="col-12 col-md-8">
+							<div className="col-12 col-sm-12 col-md-8">
 								<div className="card-body">
-									<h5 className="card-title text-danger fs-2 text-uppercase">
+									<h5 className="card-title text-danger fs-3 text-uppercase">
 										{name}
 									</h5>
-									<h6 class="card-subtitle mb-2 text-muted">
+									<h6 className="card-subtitle mb-2 text-muted">
 										<div className="row justify-content-center">
 											<div className="col-auto">
 												<small className="text-warning">COMICS: </small>
@@ -70,7 +70,7 @@ const CharacterByIdNumber = () => {
 									<p className="card-text text-justify">
 										{description ? description : "--"}
 									</p>
-									<p className="card-text text-info">
+									<div className="card-text text-info">
 										<div className="row justify-content-around">
 											<div className="col-6 text-start">
 												<small className="text-danger">Last Modified: </small>
@@ -86,7 +86,7 @@ const CharacterByIdNumber = () => {
 												</Link>
 											</div>
 										</div>
-									</p>
+									</div>
 								</div>
 							</div>
 						</div>

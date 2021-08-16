@@ -3,19 +3,19 @@ import { StoreContext } from "../../context";
 import Character from "../character";
 import MainHeader from "../mainHeader";
 import SearchBar from "../searchBar";
+import LoadingSpinner from "../loader";
 
 const CharactersList = () => {
 	const cnxtSearchInstance = useContext(StoreContext);
 	useEffect(
 		() => {
-			cnxtSearchInstance.fetchData();
+			cnxtSearchInstance.fetchDataByName(cnxtSearchInstance.search);
 		},
 		// eslint-disable-next-line
-		cnxtSearchInstance,
-		[]
+		[cnxtSearchInstance.search]
 	);
 
-	const results = cnxtSearchInstance.data;
+	const results = cnxtSearchInstance && cnxtSearchInstance.data;
 	const filteredCharacters =
 		cnxtSearchInstance.search.length === 0
 			? results
@@ -32,14 +32,10 @@ const CharactersList = () => {
 				sectionText="Get hooked on a hearty helping of heroes and villains from the humble House of Ideas!"
 			/>
 			<SearchBar className="my-4" />
+
 			<div className="row justify-content-between my-4 pb-4">
 				{cnxtSearchInstance.isLoaded === false ? (
-					<div className="d-flex align-items-center justify-content-center">
-						<strong className="text-warning">LOADING...</strong>
-						<div className="spinner-grow text-warning" role="status">
-							<span className="visually-hidden">Loading...</span>{" "}
-						</div>
-					</div>
+					<LoadingSpinner />
 				) : (
 					filteredCharacters.map((values, i) => (
 						<Character key={i} resultValues={values} />

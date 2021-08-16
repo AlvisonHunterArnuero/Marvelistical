@@ -3,7 +3,7 @@ import { StoreContext } from "../../context";
 import StoryCard from "../storyCard";
 import MainHeader from "../mainHeader";
 import SearchBar from "../searchBar";
-
+import LoadingSpinner from "../loader";
 const Stories = () => {
 	const cnxtStoriesInstance = useContext(StoreContext);
 
@@ -12,11 +12,10 @@ const Stories = () => {
 			cnxtStoriesInstance.fetchStoriesData();
 		},
 		// eslint-disable-next-line
-		cnxtStoriesInstance,
-		[]
+		[cnxtStoriesInstance.search]
 	);
 
-	const stories = cnxtStoriesInstance.storiesData || {};
+	const stories = cnxtStoriesInstance.storiesData;
 	const filteredStories =
 		cnxtStoriesInstance.search.length === 0
 			? stories
@@ -36,12 +35,7 @@ const Stories = () => {
 
 			<div className="row justify-content-between my-4 pb-4">
 				{cnxtStoriesInstance.isLoaded === false ? (
-					<div className="d-flex align-items-center justify-content-center">
-						<strong className="text-warning">LOADING...</strong>
-						<div className="spinner-grow text-warning" role="status">
-							<span className="visually-hidden">Loading...</span>{" "}
-						</div>
-					</div>
+					<LoadingSpinner />
 				) : (
 					filteredStories.map((story, i) => (
 						<StoryCard key={i} storiesItem={story} />
