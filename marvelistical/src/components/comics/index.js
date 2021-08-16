@@ -11,7 +11,6 @@ const Comics = () => {
 	useEffect(
 		() => {
 			cnxtComicsInstance.fetchComicsData();
-			cnxtComicsInstance.setHideNavBar(true);
 		},
 		// eslint-disable-next-line
 		[cnxtComicsInstance.search]
